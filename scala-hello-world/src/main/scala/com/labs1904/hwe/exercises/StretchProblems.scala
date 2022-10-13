@@ -20,7 +20,7 @@ For a given number, return the next largest number that can be created by rearra
 If no larger number can be created, return -1
  */
   def getNextBiggestNumber(i: Integer): Int = {
-    val permutations = i.toString.permutations.toArray.sortWith((a,b) => a < b)
+    val permutations = i.toString.permutations.toArray.sorted
     val solutionIdx = permutations.indexOf(i.toString) + 1
     if (solutionIdx == permutations.length) {
       -1
