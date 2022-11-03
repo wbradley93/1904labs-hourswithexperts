@@ -58,14 +58,20 @@ object WordCountStreamingApp {
 
       sentences.printSchema
 
-      // TODO: implement me
-      //val counts = ???
-
-      val query = sentences.writeStream
-        .outputMode(OutputMode.Append())
-        .format("console")
-        .trigger(Trigger.ProcessingTime("5 seconds"))
-        .start()
+      val query = sentences.flatMap(sentence => sentence.split(" "))
+                           .map(word => word.toLowerCase().replaceAll("[^a-zA-Z0-9]", ""))
+                           .withColumn("timestamp", current_timestamp())
+                           .withWatermark("timestamp", "1 second")
+                           .groupBy("value", "timestamp")
+                           .count()
+                           .orderBy(desc("timestamp"), desc("count"))
+                           .limit(10)
+                           .select("value", "count")
+                           .writeStream
+                           .outputMode(OutputMode.Complete())
+                           .format("console")
+                           .trigger(Trigger.ProcessingTime("5 seconds"))
+                           .start()
 
       query.awaitTermination()
     } catch {
