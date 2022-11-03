@@ -18,11 +18,15 @@ object HweConsumer {
   val username: String = "CHANGEME"
   val password: String = "CHANGEME"
   //Use this for Windows
-  val trustStore: String = "src\\main\\resources\\kafka.client.truststore.jks"
+  //val trustStore: String = "src\\main\\resources\\kafka.client.truststore.jks"
   //Use this for Mac
-  //val trustStore: String = "src/main/resources/kafka.client.truststore.jks"
+  val trustStore: String = "src/main/resources/kafka.client.truststore.jks"
 
   implicit val formats: DefaultFormats.type = DefaultFormats
+
+  case class RawUser(unknownNumber: String, username: String, name: String, gender: String, email: String, birthdate: String)
+  case class EnrichedUser(unknownNumber: String, username: String, name: String, gender: String, email: String,
+                          birthdate: String, numberAsWord: String, hweDeveloper: String = "Wes Bradley")
 
   def main(args: Array[String]): Unit = {
 
@@ -48,8 +52,10 @@ object HweConsumer {
         // Retrieve the message from each record
         val message = record.value()
         println(s"Message Received: $message")
-        // TODO: Add business logic here!
 
+        val Array(v1,v2,v3,v4,v5,v6) = message.split('\t')
+        val userObject = EnrichedUser(v1,v2,v3,v4,v5,v6,Util.numberToWordMap(v1.toInt))
+        producer.send(new ProducerRecord[String, String](producerTopic, userObject.productIterator.mkString(",")))
       })
     }
   }

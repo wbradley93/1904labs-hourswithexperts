@@ -16,9 +16,9 @@ object JSONConsumer {
   val username: String = "CHANGEME"
   val password: String = "CHANGEME"
   //Use this for Windows
-  val trustStore: String = "src\\main\\resources\\kafka.client.truststore.jks"
+  //val trustStore: String = "src\\main\\resources\\kafka.client.truststore.jks"
   //Use this for Mac
-  //val trustStore: String = "src/main/resources/kafka.client.truststore.jks"
+  val trustStore: String = "src/main/resources/kafka.client.truststore.jks"
 
   implicit val formats: DefaultFormats.type = DefaultFormats
 
