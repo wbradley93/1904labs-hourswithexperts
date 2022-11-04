@@ -19,25 +19,40 @@ reword confusing descriptions in a way that makes sense to you.
 
 ## Questions
 #### What is a NoSQL database? 
-
+> A data store that isn't organized into relational tables.
 
 #### In your own words, what is Apache HBase? 
-
+> HBase provides highly performant read and write capabilities for HDFS, a distributed data storage/file system.
 
 #### What are some strengths and limitations of HBase? 
 * [HBase By Examples](https://sparkbyexamples.com/apache-hbase-tutorial/)
+> Strengths:
+> - All the benefits of HDFS (scalable, fault tolerant, etc)
+> - Supports MapReduce and Spark
+> - REST API
+> - Runs on commodity hardware
+> 
+> Limitations:
+> - HBase tables cannot be joined
+> - CPU/memory intensive
+> - Cannot create keys on multiple columns
+> - Can only sort on row keys
 
 #### Explain the following concepts: 
-* Rowkey
+* Row key
+> Identifier for a subset of the data space containing a single set of timestamped key-value pairs
 * Column Qualifier
+> Identifier for a single key (column/dimension) within the data space
 * Column Family
-
+> Set of keys (columns/dimensions) defining a logically-related subset of the data space that is stored together on disk
 
 #### What are the differences between Get and Put commands in HBase? 
 * [HBase commands](https://www.tutorialspoint.com/hbase/hbase_create_data.htm)
-
+> Get reads specific data from the store, put writes data to the store
 
 #### What is the HBase Scan command for? 
 * [HBase Scan](https://www.tutorialspoint.com/hbase/hbase_scan.htm)
+> Reading the full table in an HBase store
 
-#### What was the most interesting aspect of HBase when went through all the questions? 
+#### What was the most interesting aspect of HBase when went through all the questions?
+> 
